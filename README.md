@@ -3,6 +3,11 @@ Security Camera (Raspberry) Pi
 
 Start streaming a Logitech QuickCam UltraVision (http://support.logitech.com/en_us/product/quickcam-ultra-vision) and capture the stream as soon as the PIR detects motion. Save the captured files in the cloud.
 
+# Requirements
+* vlc and cvlc
+* uvcdynctrl (and import corresponding file: uvcdynctrl -i /usr/share/uvcdynctrl/data/046d/logitech.xml)
+* some more...
+
 ## TODO Part I
 * make init script stable (stop seems a bit flakey right now)
 * add the save-chinks functionality
