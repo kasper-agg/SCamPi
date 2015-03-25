@@ -27,8 +27,8 @@ Start streaming a Logitech QuickCam UltraVision (http://support.logitech.com/en_
 
 ## TODO Part II
 * Create (android) app to:
-- get alerts when motion is detected
-- view live stream (with live audio)
-- turn off/on alarm when app is connected/disconnected from local network
-- turn on/off alarm through app
-- talk back (hook up speaker to Raspberry Pi) - is it even possible?
+-- get alerts when motion is detected
+-- view live stream (with live audio)
+-- turn off/on alarm when app is connected/disconnected from local network
+-- turn on/off alarm through app
+-- talk back (hook up speaker to Raspberry Pi) - is it even possible?
