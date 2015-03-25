@@ -1,0 +1,90 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:      vlcd
+# Required-Start:   $remote_fs
+# Required-Stop:   $remote_fs
+# Should-Start:      $network
+# Should-Stop:
+# Default-Start:   2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description:   VLC daemon
+# Description:      VLC daemon with HTTP interface.
+### END INIT INFO
+
+DAEMON_BIN=/usr/bin/vlcd
+NAME=vlcd
+DESC="VLC daemon"
+PIDFILE=/tmp/vlcd.pid
+
+if [ ! -x $DAEMON_BIN ]; then
+  echo "ERROR: Can't execute $DAEMON."
+  exit 1
+fi
+
+start() {
+    if [ -e "$PIDFILE" ]; then
+        ## Program is running, exit with error.
+        echo "Error! $DAEMON_BIN is currently running!" 1>&2
+        exit 1
+    else
+        touch "$PIDFILE"
+        echo "Starting $DAEMON_BIN..."
+        $DAEMON_BIN
+    fi
+}
+
+stop() {
+    if [ -e "$PIDFILE" ]; then
+        ## Program is running, so stop it
+            # blink
+            su - pi -c "uvcdynctrl -s 'LED1 Mode' 2";
+            sleep 1;
+            # turn off
+            su - pi -c "uvcdynctrl -s 'LED1 Mode' 0";
+        killall $NAME
+
+        rm "$PIDFILE"
+
+        echo "$DAEMON_BIN stopped"
+    else
+        ## Program is not running, exit with error.
+        echo "Error! $DAEMON_BIN not started!" 1>&2
+        exit 1
+    fi
+}
+
+
+## Check to see if we are running as root first.
+## Found at http://www.cyberciti.biz/tips/shell-root-user-check-script.html
+if [ "$(id -u)" != "0" ]; then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi
+
+case "$1" in
+    start)
+        start
+        exit 0
+    ;;
+    stop)
+        stop
+        exit 0
+    ;;
+    reload|restart|force-reload)
+        stop
+        start
+        exit 0
+    ;;
+    **)
+        echo "Usage: $0 {start|stop|restart}" 1>&2
+        exit 1
+    ;;
+    *)
+      echo "oops" 1>&2
+        exit 1
+    ;;
+esac
+
+exit 0
+

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+DAEMON_BIN=/usr/bin/cvlc
+DAEMON_BIN_ARGS="v4l2:///dev/video0:chroma=MJPG --input-slave=alsa://hw:1,0 --sout '#transcode{acodec=mp3,channels=1,ab=64,adio-sync}:http{mux=ts}' --http-host=0.0.0.0 --http-port=8181 -I dummy -vvv
+
+[ -x "$DAEMON_BIN" ] || exit 0
+
+    # load the logitech.xml configuration
+    su - pi -c "uvcdynctrl -i /usr/share/uvcdynctrl/data/046d/logitech.xml";
+    # blink
+    su - pi -c "uvcdynctrl -s 'LED1 Mode' 2";
+    sleep 2;
+    # turn off
+    su - pi -c "uvcdynctrl -s 'LED1 Mode' 0";
+
+    # start streaming
+    # Change from /dev/null to something like /var/log/$NAME.log if you want to save output.
+    su - pi -c "$DAEMON_BIN $DAEMON_BIN_ARGS" 2>/dev/null
+
+exit 0
+
