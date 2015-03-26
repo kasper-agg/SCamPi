@@ -11,7 +11,7 @@ Start streaming a Logitech QuickCam UltraVision (http://support.logitech.com/en_
 ## Hardware
 * Raspberry Pi 1,2,3,4 should all be supported at some point
 * PIR sensor
-* Logitech webcam (I have two QuicCam UltraVision camera's but the concept should work on others too)
+* Logitech webcam (I'm using a QuicCam Ultra Vision camera but the concept should work on others too)
 * more...
 
 ## TODO Part I
