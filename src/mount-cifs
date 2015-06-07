@@ -1,0 +1,2 @@
+# /etc/fstab
+//{IP-address}/{destination} /storage/hd1    cifs    credentials=/etc/cifspwd,gid=33,uid=1001,file_mode=0775,dir_mode=0775   0       0
